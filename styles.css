@@ -1,0 +1,70 @@
+/** @define Autodoc; use strict*/
+
+.Autodoc {
+  display: inline-block;
+  width: 33%;
+}
+
+.Autodoc {}
+
+.Autodoc-title {}
+.Autodoc-table {}
+
+
+.Autodoc-property,
+.Autodoc-type {
+  padding: 0.3333em;
+}
+
+.Autodoc-property {
+  text-align: left;
+  font-weight: 100;
+  color: #000;
+  min-width: 100px;
+}
+
+.Autodoc-type,
+.Autodoc-required {
+  display: inline-block;
+  font-size: 0.91666em;
+  font-weight: 300;
+  margin: 0.0666em;
+  min-width: 70px;
+  text-align: center;
+}
+
+.Autodoc-type {
+  background: #ddd;
+  border-radius: 3px;
+  color: #444;
+}
+
+.Autodoc-type.is-object {
+  background: red;
+  color: #fff;
+}
+
+.Autodoc-type.is-func {
+  background: yellow;
+  color: #333;
+}
+
+.Autodoc-type.is-bool {
+  background: orange;
+  color: #fff;
+}
+
+.Autodoc-type.is-string {
+  background: green;
+  color: #fff;
+}
+
+.Autodoc-required {}
+
+.Autodoc-required.is-Required {}
+
+.Autodoc-required.is-Optional {
+  display: none;
+}
+
+
