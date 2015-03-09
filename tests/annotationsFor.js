@@ -12,9 +12,12 @@ function test(input, expected) {
   var properties = getProps(ast);
 
   var output = annotationsFor(properties);
-  var outputSource = escodegen.generate(output);
+  var outputSource = escodegen.generate(output).replace(/\s+/g, '');
 
-  var expectedSource = escodegen.generate(expected);
+  var expectedSource = (typeof expected === 'string' ?
+    expected :
+    escodegen.generate(expected)).replace(/\s+/g, '');
+
   assert.equal(
     outputSource,
     expectedSource,
@@ -53,24 +56,44 @@ var ObjectExpressionTypes = [
 
 
 var CallExpressionTypes = [
-  'instanceOf',
-  'oneOf',
-  'oneOfType',
-  'arrayOf',
-  'objectOf',
-  'shape',
+  ['instanceOf(MyComponent)',
+    '{propType: \'MyComponent\'}',
+    '{propType: \'MyComponent\', isRequired: true}',
+  ],
+  /*
+  ['oneOf(["Hello", 5])',
+    '{propType: \'["Hello", 5]\'}',
+    '{propType: \'["Hello", 5]\', isRequired: true}',
+  ]
+  'oneOfType([React.PropTypes.string, React.PropTypes.number])',
+  'arrayOf(React.PropTypes.string)',
+  'objectOf(React.PropTypes.number)',
+  'shape({name: React.PropTypes.string, id: React.PropTypes.number})',
+ */
 ];
 
 
 ObjectExpressionTypes.forEach(function(type) {
   test(
-    'var propTypes = {str: React.PropTypes.' + type + '};',
+    'var propTypes = {prop: React.PropTypes.' + type + '};',
     ObjectExpression('propType', type)
   );
 
   test(
-    'var propTypes = {str: React.PropTypes.' + type + '.isRequired};',
+    'var propTypes = {prop: React.PropTypes.' + type + '.isRequired};',
     ObjectExpression('propType', type, 'isRequired', true)
+  );
+});
+
+CallExpressionTypes.forEach(function(expr) {
+  test(
+    'var propTypes = {prop: React.PropTypes.' + expr[0] + '};',
+    expr[1]
+  );
+
+  test(
+    'var propTypes = {prop: React.PropTypes.' + expr[0] + '.isRequired};',
+    expr[2]
   );
 });
 
