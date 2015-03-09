@@ -49,6 +49,12 @@ module.exports = function(type) {
     '{propType: \'any\', isRequired: true}',
   ];
 
+  if (results.length === 0) {
+    throw new Error(
+      'No results were parsed. Expected ' + expected.length + ' annotations.'
+    );
+  }
+
   results.forEach(function(r, i) {
     var a = r.replace(/\s+/g, '');
     var b = expected[i].replace(/\s+/g, '');

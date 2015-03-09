@@ -1,9 +1,9 @@
 
-class ModernExample extends React.element({
+class ModernExample extends React.element {
   render() {
     return null;
   }
-});
+}
 
 ModernExample.propTypes = {
   optionalArray: React.PropTypes.array,

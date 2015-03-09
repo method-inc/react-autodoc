@@ -4,7 +4,7 @@
   "description": "A React component and webpack loader to autogenerate documentation for your React components",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests/classic"
+    "test": "node ./tests/annotationsFor && node ./tests/classic && node ./tests/modern"
   },
   "author": "Dustan Kasten <dustan@skookum.com>",
   "license": "MIT",

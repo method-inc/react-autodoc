@@ -1,6 +1,6 @@
 var assert = require('assert');
 var esprima = require('esprima-fb');
-var annotationsFor = require('../transforms/annotationsFor');
+var annotationsFor = require('../transforms/annotationsFor').annotate;
 var escodegen = require('escodegen');
 
 // TODO: support custom function() {}
