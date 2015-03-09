@@ -101,33 +101,10 @@ Alternatives to inline annotations that can still be explored are:
 
 ## React Autodoc Expected Annotations
 
-For simple primitives, they all follow the following:
-
-```
-[propertyKey]: propertyValue {
-  propType: type,
-  /* isRequired: isRequired, */
-  /* defaultValue: defaultValue, */
-```
-
-For complex validations that are call expressions, the following is the expected
-annotations for each:
-
-```
-[propertyKey]: propertyValue {
-  propType: type,
-  /* isRequired: isRequired, */
-  /* defaultValue: defaultValue, */
-```
-var CallExpressionTypes = [
-  'instanceOf(MyComponent)',
-  /*
-  'oneOf(["Hello", "World"])',
-  'oneOfType([React.PropTypes.string, React.PropTypes.number])',
-  'arrayOf(React.PropTypes.string)',
-  'objectOf(React.PropTypes.number)',
-  'shape({name: React.PropTypes.string, id: React.PropTypes.number})',
- */
+The `tests/annotationsFor.js` file contains the expected annotations for
+Autodoc. Implementing this interface will give you the freedom to build on top
+of either side of the Autodoc. You are free to reimplement `<Autodoc />` or
+add your own build-step transformations to handle the annotating.
 
 ## MIT License
 
