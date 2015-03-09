@@ -71,15 +71,16 @@ var CallExpressionTypes = [
   ['oneOfType([React.PropTypes.string, React.PropTypes.number])',
     '{propType: [\'string\', \'number\']}',
     '{propType: [\'string\', \'number\'], isRequired: true}',
-  ]
-  /*
+  ],
   ['oneOf(["Hello", 5])',
-    '{propType: \'["Hello", 5]\'}',
-    '{propType: \'["Hello", 5]\', isRequired: true}',
+    '{propType: [\'Hello\', 5]}',
+    '{propType: [\'Hello\', 5], isRequired: true}',
+  ],
+  ['objectOf(React.PropTypes.number)',
+    '{propType: \'number{}\'}',
+    '{propType: \'number{}\', isRequired: true}',
   ]
-  */
   /*
-  'objectOf(React.PropTypes.number)',
   'shape({name: React.PropTypes.string, id: React.PropTypes.number})',
  */
 ];
