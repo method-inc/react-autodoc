@@ -99,6 +99,36 @@ Alternatives to inline annotations that can still be explored are:
   available. Some immediate trade-offs is we can’t provide rich views into
   `CallExpression` propTypes such as `oneOf` or `shape`.
 
+## React Autodoc Expected Annotations
+
+For simple primitives, they all follow the following:
+
+```
+[propertyKey]: propertyValue {
+  propType: type,
+  /* isRequired: isRequired, */
+  /* defaultValue: defaultValue, */
+```
+
+For complex validations that are call expressions, the following is the expected
+annotations for each:
+
+```
+[propertyKey]: propertyValue {
+  propType: type,
+  /* isRequired: isRequired, */
+  /* defaultValue: defaultValue, */
+```
+var CallExpressionTypes = [
+  'instanceOf(MyComponent)',
+  /*
+  'oneOf(["Hello", "World"])',
+  'oneOfType([React.PropTypes.string, React.PropTypes.number])',
+  'arrayOf(React.PropTypes.string)',
+  'objectOf(React.PropTypes.number)',
+  'shape({name: React.PropTypes.string, id: React.PropTypes.number})',
+ */
+
 ## MIT License
 
 Copyright 2015 Skookum Digital Works, Inc. All Right Reserved

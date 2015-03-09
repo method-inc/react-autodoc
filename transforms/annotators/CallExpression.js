@@ -1,38 +1,22 @@
 var PROP_TYPE_KEY = require('../propTypeKey');
+var types = require('../types');
 
 module.exports = function(target) {
-  var annotations = [];
+  var propType = target.callee.property.name;
   var propName = target.arguments[0].name;
 
-  // React.PropTypes.type.isRequired
-  // should have a child MemberExpression so we want to grab
-  // the prpoperty name from that as well
-  if (propName === 'isRequired') {
-    /*
-    if (target.object) {
-      // TODO: CallExpression's
-      if (target.object.type === 'MemberExpression') {
-        annotations.push({
-          key: PROP_TYPE_KEY,
-          value: target.object.property.name,
-        });
-      }
-    }
-    */
-
-    annotations.push({
-      key: propName,
-      value: true,
-    });
-  }
-  else {
-    annotations.push({
-      key: PROP_TYPE_KEY,
-      value: propName,
-    });
+  if (typeof types[propType] === 'undefined') {
+    throw new Error('Attempted to annotate unknown CallExpression ' + propType);
   }
 
-  return annotations;
+  var annotations = types[propType].resolve(target);
+  /*
+  console.log(annotations);
+
+  console.log(require('escodegen').generate(annotations));
+ */
+
+  return [annotations];
 };
 
 
