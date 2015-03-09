@@ -5,5 +5,6 @@ module.exports = {
   objectOf: require('./objectOf'),
   oneOf: require('./oneOf'),
   oneOfType: require('./oneOfType'),
+  shape: require('./shape'),
 };
 
