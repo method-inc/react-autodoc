@@ -30,10 +30,11 @@ module.exports = function annotationsFor(node) {
           type: 'Identifier',
           name: a.key,
         },
-        value: {
-          type: 'Literal',
-          value: a.value
-        }
+        value: (typeof a.value === 'object') ?
+          a.value : {
+            type: 'Literal',
+            value: a.value
+          }
       };
     })
   };

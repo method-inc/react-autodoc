@@ -8,16 +8,11 @@
  * @providesModule oneOf
  */
 
+var is = require('./_util').is;
 function value(o) { return o.value; }
 
 module.exports = {
-  is: function(o) {
-    return (
-      typeof o === 'object' &&
-      o.type === 'CallExpression' &&
-      o.callee.property.name === 'oneOf'
-    );
-  },
+  is: is('oneOf'),
 
   // React.PropTypes.oneOf(Thing);
   resolve: function(o) {

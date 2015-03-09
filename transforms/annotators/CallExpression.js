@@ -16,11 +16,6 @@ module.exports = function CallExpressionAnnotator(target) {
   }
 
   var annotations = types[propType].resolve(target);
-  /*
-  console.log(annotations);
-
-  console.log(require('escodegen').generate(annotations));
- */
 
   return Array.isArray(annotations) ? annotations : [annotations];
 };
