@@ -3,6 +3,10 @@ var esprima = require('esprima-fb');
 var annotationsFor = require('../transforms/annotationsFor');
 var escodegen = require('escodegen');
 
+// TODO: support custom function() {}
+// TODO: support custom functions defined on PropTypes
+// eg. https://github.com/rackt/react-router/blob/master/build/npm/lib/PropTypes.js
+
 function getProps(ast) {
   return ast.body[0].declarations[0].init.properties[0];
 }
@@ -52,8 +56,8 @@ var ObjectExpressionTypes = [
   'string',
   'node',
   'element',
+  'any',
 ];
-
 
 var CallExpressionTypes = [
   [ 'instanceOf(MyComponent)',
@@ -71,6 +75,10 @@ var CallExpressionTypes = [
   [ 'oneOfType([React.PropTypes.string, React.PropTypes.number])',
     '{propType: [\'string\', \'number\']}',
     '{propType: [\'string\', \'number\'], isRequired: true}',
+  ],
+  [ 'oneOfType([React.PropTypes.string, React.PropTypes.instanceOf(MyComponent)])',
+    '{propType: [\'string\', \'MyComponent\']}',
+    '{propType: [\'string\', \'MyComponent\'], isRequired: true}',
   ],
   [ 'oneOf(["Hello", 5])',
     '{propType: [\'Hello\', 5]}',

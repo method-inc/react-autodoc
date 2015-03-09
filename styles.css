@@ -1,8 +1,11 @@
 /** @define Autodoc; use strict*/
 
 .Autodoc {
+  box-sizing: border-box;
   display: inline-block;
+  padding-right: 2%;
   width: 33%;
+  vertical-align: top;
 }
 
 .Autodoc {}
@@ -10,10 +13,27 @@
 .Autodoc-title {}
 .Autodoc-table {}
 
+.Autodoc-table th,
+.Autodoc-table td {
+  padding: 0.1666em 0.333em;;
+  vertical-align: top;
+}
+
+.Autodoc-table thead td {
+  padding-bottom: 0.666em;
+  background: rgba(0, 0, 0, 0.05);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.Autodoc-table tr:first-child th,
+.Autodoc-table tr:first-child td {
+  padding-top: 0.666em;
+}
 
 .Autodoc-property,
 .Autodoc-type {
   padding: 0.3333em;
+  vertical-align: top;
 }
 
 .Autodoc-property {
@@ -23,48 +43,81 @@
   min-width: 100px;
 }
 
-.Autodoc-type,
-.Autodoc-required {
+.Autodoc-type {
   display: inline-block;
   font-size: 0.91666em;
   font-weight: 300;
   margin: 0.0666em;
-  min-width: 70px;
   text-align: center;
+}
+
+.Autodoc-required {
+  display: block;
+  font-size: 0.666em;
+  line-height: 1.5;
 }
 
 .Autodoc-type {
   background: #ddd;
   border-radius: 3px;
   color: #444;
+  padding: 0.2222em;
 }
 
 .Autodoc-type.is-object {
-  background: red;
+  background: #aa5939;
   color: #fff;
+}
+
+.Autodoc-type.is-array,
+.Autodoc-type.is-enum {
+  background: #0f5738;
+  color: #eee;
 }
 
 .Autodoc-type.is-func {
-  background: yellow;
-  color: #333;
+  background: #aa7939;
+  color: #eee;
 }
 
 .Autodoc-type.is-bool {
-  background: orange;
+  background: #496d89;
   color: #fff;
 }
 
+.Autodoc-type.is-number {
+  background: #ffdbaa;
+  color: #553100;
+}
+
 .Autodoc-type.is-string {
-  background: green;
+  background: #277553;
+  color: #fff;
+}
+
+.Autodoc-type.is-date {
+  background: #0f5738;
   color: #fff;
 }
 
 .Autodoc-required {}
 
-.Autodoc-required.is-Required {}
-
-.Autodoc-required.is-Optional {
-  display: none;
+.Autodoc-required.is-Required {
+  color: #666;
+  font-weight: bold;
 }
 
+.Autodoc-required.is-Optional {
+  color: #666;
+}
+
+.Autodoc-type.is-shape {
+  background: transparent;
+  padding: 0.3333em;
+  text-align: left;
+}
+
+.Autodoc-type.is-shape .Autodoc-type {
+  min-width: 0;
+}
 

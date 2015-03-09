@@ -9,7 +9,6 @@
  */
 
 var is = require('./_util').is;
-var MemberExpressionAnnotator = require('../annotators/MemberExpression');
 var getValue = function(o) { return o[0].value; }
 
 module.exports = {
@@ -17,9 +16,14 @@ module.exports = {
 
   // React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])
   resolve: function(o) {
+    // require these late to avoid circular dependency issues
+    var annotators = require('../annotators/');
+
     var value = o.arguments[0];
     value = o.arguments[0].elements
-      .map(MemberExpressionAnnotator)
+      .map(function(node) {
+        return annotators[node.type](node);
+      })
       .map(getValue);
 
     return {
