@@ -5,23 +5,24 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @providesModule instanceOf
+ * @providesModule arrayOf
  */
 
 var is = require('./_util').is;
 function value(o) { return o.value; }
 
 module.exports = {
-  is: is('instanceOf'),
+  is: is('arrayOf'),
 
-  // React.PropTypes.instanceOf(Thing);
+  // React.PropTypes.arrayOf(React.propTypes.string)
+  // React.PropTypes.arrayOf(React.propTypes.number).isRequired
   resolve: function(o) {
-    var value = o.arguments[0].name;
-    return {
-      key: 'propType',
-      value: value,
-    };
+    var result = require('../annotators/MemberExpression')(o.arguments[0])[0];
+    result.value = result.value + '[]';
+
+    return result;
   }
 };
+
 
 

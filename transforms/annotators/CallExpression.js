@@ -1,7 +1,13 @@
 var PROP_TYPE_KEY = require('../propTypeKey');
 var types = require('../types');
 
-module.exports = function(target) {
+/**
+ * Resolve annotations for call expressions
+ *
+ * @param {ASTNode} target
+ * @return {Array} annotations
+ */
+module.exports = function CallExpressionAnnotator(target) {
   var propType = target.callee.property.name;
   var propName = target.arguments[0].name;
 
@@ -16,7 +22,7 @@ module.exports = function(target) {
   console.log(require('escodegen').generate(annotations));
  */
 
-  return [annotations];
+  return Array.isArray(annotations) ? annotations : [annotations];
 };
 
 

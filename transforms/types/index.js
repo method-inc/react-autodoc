@@ -1,6 +1,7 @@
 
 module.exports = {
-  oneOf: require('./oneOf'),
+  arrayOf: require('./arrayOf'),
   instanceOf: require('./instanceOf'),
+  oneOf: require('./oneOf'),
 };
 

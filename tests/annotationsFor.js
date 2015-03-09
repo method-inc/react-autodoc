@@ -56,10 +56,18 @@ var ObjectExpressionTypes = [
 
 
 var CallExpressionTypes = [
-  ['instanceOf(MyComponent)',
+  [ 'instanceOf(MyComponent)',
     '{propType: \'MyComponent\'}',
     '{propType: \'MyComponent\', isRequired: true}',
   ],
+  [ 'arrayOf(React.PropTypes.string)',
+    '{propType: \'string[]\'}',
+    '{propType: \'string[]\', isRequired: true}',
+  ],
+  [ 'arrayOf(React.PropTypes.number)',
+    '{propType: \'number[]\'}',
+    '{propType: \'number[]\', isRequired: true}',
+  ]
   /*
   ['oneOf(["Hello", 5])',
     '{propType: \'["Hello", 5]\'}',
@@ -68,7 +76,6 @@ var CallExpressionTypes = [
   */
   /*
   'oneOfType([React.PropTypes.string, React.PropTypes.number])',
-  'arrayOf(React.PropTypes.string)',
   'objectOf(React.PropTypes.number)',
   'shape({name: React.PropTypes.string, id: React.PropTypes.number})',
  */

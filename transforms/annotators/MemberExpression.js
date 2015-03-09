@@ -1,7 +1,13 @@
 var PROP_TYPE_KEY = require('../propTypeKey');
 var annotators = require('./index');
 
-module.exports = function(target) {
+/**
+ * Resolve annotations for member expressions
+ *
+ * @param {ASTNode} target
+ * @return {Array} annotations
+ */
+module.exports = function MemberExpressionAnnotator(target) {
   var annotations = [];
   var propName = target.property.name;
 

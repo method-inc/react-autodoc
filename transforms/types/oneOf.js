@@ -19,6 +19,7 @@ module.exports = {
     );
   },
 
+  // React.PropTypes.oneOf(Thing);
   resolve: function(o) {
     // TODO: if this is a variable reference instead of inline
     // we’ll need to look it up
