@@ -1,5 +1,5 @@
 
-var annotationsFor = require('./transforms/annotationsFor');
+var annotationsFor = require('./transforms/annotationsFor').annotate;
 var estemplate = require('estemplate');
 var prependAnnotationRequire = require('./transforms/prepend');
 

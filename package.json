@@ -4,7 +4,7 @@
   "description": "A React component and webpack loader to autogenerate documentation for your React components",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests/annotationsFor"
+    "test": "node ./tests/classic"
   },
   "author": "Dustan Kasten <dustan@skookum.com>",
   "license": "MIT",
@@ -13,6 +13,8 @@
     "estemplate": "^0.4.0"
   },
   "devDependencies": {
-    "escodegen": "^1.6.1"
+    "escodegen": "^1.6.1",
+    "estraverse": "^1.9.3",
+    "estraverse-fb": "^1.3.0"
   }
 }
