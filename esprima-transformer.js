@@ -11,10 +11,11 @@ function isClassic(node) {
   );
 }
 
-function isModern(node) {
+function isModern(node, parent) {
   return (
     node.type === 'MemberExpression' &&
-    node.property.name === 'propTypes'
+    node.property.name === 'propTypes' &&
+    parent.right && typeof parent.right.properties !== 'undefined'
   );
 }
 
@@ -44,7 +45,7 @@ module.exports = {
       node.value.properties = node.value.properties.map(annotate);
       return node;
     }
-    else if (isModern(node)) {
+    else if (isModern(node, parent)) {
       parent.right.properties = parent.right.properties.map(annotate);
       return node;
     }
