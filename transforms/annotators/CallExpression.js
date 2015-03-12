@@ -20,4 +20,3 @@ module.exports = function CallExpressionAnnotator(target) {
   return Array.isArray(annotations) ? annotations : [annotations];
 };
 
-

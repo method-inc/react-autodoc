@@ -5,9 +5,10 @@ var estraverse = require('estraverse-fb');
 var escodegen = require('escodegen');
 var assert = require('assert');
 
-var results = [];
+var results;
 var spyOnReturn = function(obj, method) {
   var orig = obj[method];
+  results = [];
   obj[method] = function() {
     var result = orig.apply(obj, arguments);
     results.push(
