@@ -76,3 +76,19 @@ ModernExample.defaultProps = {
   optionalEnum: 'News',
 };
 
+
+class Round2 extends React.Component {
+  render() {
+    return null;
+  }
+}
+
+ModernExample.propTypes = {
+  optionalArray: React.PropTypes.array,
+};
+
+ModernExample.defaultProps = {
+  optionalArray: [],
+};
+
+

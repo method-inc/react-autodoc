@@ -19,11 +19,11 @@ var spyOnReturn = function(obj, method) {
 }
 
 module.exports = function(type) {
-  spyOnReturn(require('../transforms/annotationsFor'), 'annotate');
+  spyOnReturn(require('../../transforms/annotationsFor'), 'annotate');
 
-  var contents = readFile(path.join(__dirname, 'fixtures', type + '.js'), 'utf8');
+  var contents = readFile(path.join(__dirname, '..', 'fixtures', type + '.js'), 'utf8');
 
-  var transformer = require('../esprima-transformer');
+  var transformer = require('../../esprima-transformer');
 
   var ast = estraverse[transformer.type](
     esprima.parse(contents),

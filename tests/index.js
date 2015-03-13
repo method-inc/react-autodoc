@@ -2,7 +2,12 @@
 require('./annotate');
 require('./extract');
 
-// integration
-require('./classic');
-require('./modern');
+// ast integration
+require('./ast/classic');
+require('./ast/modern');
+
+
+// js integration
+require('./js/classic');
+require('./js/modern');
 
