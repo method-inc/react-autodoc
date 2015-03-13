@@ -83,11 +83,11 @@ class Round2 extends React.Component {
   }
 }
 
-ModernExample.propTypes = {
+Round2.propTypes = {
   optionalArray: React.PropTypes.array,
 };
 
-ModernExample.defaultProps = {
+Round2.defaultProps = {
   optionalArray: [],
 };
 

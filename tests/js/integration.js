@@ -28,24 +28,28 @@ module.exports = function(type) {
   );
 
   // TODO: add support for default values
+  var fullExamplePropTypes = {
+    optionalArray: {propType: 'array'},
+    optionalBool: {propType: 'bool'},
+    optionalFunc: {propType: 'func'},
+    optionalNumber: {propType: 'number'},
+    optionalObject: {propType: 'object'},
+    optionalString: {propType: 'string'},
+    optionalNode: {propType: 'node'},
+    optionalElement: {propType: 'element'},
+    optionalMessage: {propType: 'Message'},
+    optionalEnum: {propType: ['News', 'Photos']},
+    optionalUnion: {propType: ['string', 'number', 'Message']},
+    optionalArrayOf: {propType: 'number[]'},
+    optionalObjectOf: {propType: 'number{}'},
+    optionalObjectWithShape: {propType: {color: 'string', fontSize: 'number'}},
+    requiredFunc: {propType: 'func', isRequired: true},
+    requiredAny: {propType: 'any', isRequired: true},
+  };
+
   var expected = {
-    ClassicExample: { optionalArray: {propType: 'array'},
-      optionalBool: {propType: 'bool'},
-      optionalFunc: {propType: 'func'},
-      optionalNumber: {propType: 'number'},
-      optionalObject: {propType: 'object'},
-      optionalString: {propType: 'string'},
-      optionalNode: {propType: 'node'},
-      optionalElement: {propType: 'element'},
-      optionalMessage: {propType: 'Message'},
-      optionalEnum: {propType: ['News', 'Photos']},
-      optionalUnion: {propType: ['string', 'number', 'Message']},
-      optionalArrayOf: {propType: 'number[]'},
-      optionalObjectOf: {propType: 'number{}'},
-      optionalObjectWithShape: {propType: {color: 'string', fontSize: 'number'}},
-      requiredFunc: {propType: 'func', isRequired: true},
-      requiredAny: {propType: 'any', isRequired: true},
-    },
+    ClassicExample: fullExamplePropTypes,
+    ModernExample: fullExamplePropTypes,
     Round2: {
       optionalArray: {propType: 'array'}
     },
@@ -57,17 +61,19 @@ module.exports = function(type) {
     );
   }
 
-  Object.keys(transformer.annotations).forEach(function(displayName, i) {
-    var result = transformer.annotations[displayName];
-    var expect = expected[displayName];
+  transformer.onComplete = function(annotations) {
+    Object.keys(annotations).forEach(function(displayName, i) {
+      var result = annotations[displayName];
+      var expect = expected[displayName];
 
-    assert.deepEqual(
-      result,
-      expect,
-      'Expected \n' + JSON.stringify(result) +
-        ' not to be \n' + JSON.stringify(expect) +
-        ' for ' + displayName
-    );
-  });
+      assert.deepEqual(
+        result,
+        expect,
+        'Expected \n' + JSON.stringify(result) +
+          ' not to be \n' + JSON.stringify(expect) +
+          ' for ' + displayName
+      );
+    });
+  };
 };
 

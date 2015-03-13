@@ -52,9 +52,10 @@ function find(o, fn) {
 }
 
 var _ReactClassDeclarations = [];
+var Annotations = {};
 
 module.exports = {
-  annotations: {},
+  onComplete: function() {},
   type: 'traverse',
   enter: function(node, parent) {
     if (node.type === 'Program') {
@@ -71,7 +72,7 @@ module.exports = {
         return p.type === 'Property' && p.key.name === 'propTypes'
       });
 
-      module.exports.annotations[name] = propTypes.value.properties.reduce(extract, {});
+      Annotations[name] = propTypes.value.properties.reduce(extract, {});
 
       return estraverse.VisitorOption.Skip;
     }
@@ -89,15 +90,17 @@ module.exports = {
             node.object.name
         );
       }
-      module.exports.annotations[node.object.name] = parent.right.properties.reduce(extract, {});
+      Annotations[node.object.name] = parent.right.properties.reduce(extract, {});
     }
   },
 
   leave: function(node, parent) {
     // clean up when you leave a file
     if (node.type === 'Program') {
-      _ReactClassDeclarations.length = [];
-      module.exports.annotations = {};
+      module.exports.onComplete(Annotations);
+
+      _ReactClassDeclarations = [];
+      Annotations = {};
     }
   }
 };
