@@ -37,7 +37,7 @@ function extractNameFromProperties(properties){
 }
 
 function extractNameFromVariableDeclarator(declarator) {
-  return declarator.id.name;
+  return declarator.id && declarator.id.name;
 }
 
 function find(o, fn) {
@@ -58,9 +58,6 @@ module.exports = {
   onComplete: function() {},
   type: 'traverse',
   enter: function(node, parent) {
-    if (node.type === 'Program') {
-    }
-
     if (isClassic(node)) {
       var props = node.arguments[0].properties;
       var name = (
@@ -71,6 +68,10 @@ module.exports = {
       var propTypes = find(props, function(p) {
         return p.type === 'Property' && p.key.name === 'propTypes'
       });
+
+      if (typeof propTypes === 'undefined') {
+        return estraverse.VisitorOption.Skip;
+      }
 
       Annotations[name] = propTypes.value.properties.reduce(extract, {});
 
@@ -90,6 +91,7 @@ module.exports = {
             node.object.name
         );
       }
+
       Annotations[node.object.name] = parent.right.properties.reduce(extract, {});
     }
   },

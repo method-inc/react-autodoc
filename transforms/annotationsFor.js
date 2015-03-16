@@ -58,7 +58,7 @@ function transform(value) {
 module.exports = {
   // convert the AST back to it’s real JS object representation
   extract: function extract(node) {
-    return _(node).reduce(function(o, k) {
+    return (_(node) || []).reduce(function(o, k) {
       o[k.key] = transform(k.value);
       return o;
     }, {});
