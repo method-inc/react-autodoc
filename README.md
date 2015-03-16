@@ -1,5 +1,7 @@
 # react-autodoc
 
+[![Build Status](https://magnum.travis-ci.com/Skookum/react-autodocs.svg?token=PSscovpkQs3Q5xHsFFcG)](https://magnum.travis-ci.com/Skookum/react-autodocs)
+
 React autodoc is the foundation for generating the documentation for your React
 Components. React provides a built-in mechanism for runtime property validation.
 If you opt-in to using these, you can use this tool to automate your
