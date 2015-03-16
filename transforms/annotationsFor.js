@@ -17,6 +17,11 @@ var annotators = require('./annotators');
 function _(node) {
   var target = node.value;
   if (typeof annotators[target.type] !== 'function') {
+    console.warn(
+      'Attempted to annotate unsupported node type ' + target.type
+    );
+    return null;
+
     throw new Error(
       'Attempted to annotate unsupported node type ' + target.type
     );
