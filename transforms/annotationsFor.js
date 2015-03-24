@@ -10,24 +10,22 @@
 var oneOf = require('./types/oneOf');
 
 var annotators = require('./annotators');
+var defaulters = require('./defaulters');
 
 /**
  * Get the AST representation of a nodes propTypes definition
  */
-function _(node) {
+function _(type, node) {
   var target = node.value;
-  if (typeof annotators[target.type] !== 'function') {
+  var t = type[target.type] ? target.type : 'defaults'
+  if (typeof type[t] !== 'function') {
     console.warn(
       'Attempted to annotate unsupported node type ' + target.type
     );
     return null;
-
-    throw new Error(
-      'Attempted to annotate unsupported node type ' + target.type
-    );
   }
 
-  return annotators[target.type](target);
+  return type[t](target);
 }
 
 /**
@@ -63,14 +61,14 @@ function transform(value) {
 module.exports = {
   // convert the AST back to it’s real JS object representation
   extract: function extract(node) {
-    return (_(node) || []).reduce(function(o, k) {
+    return (_(annotators, node) || []).reduce(function(o, k) {
       o[k.key] = transform(k.value);
       return o;
     }, {});
   },
 
   annotate: function annotationsFor(node) {
-    var annotations = _(node);
+    var annotations = _(annotators, node);
     return {
       type: 'ObjectExpression',
       properties: annotations.map(function(a) {
@@ -81,14 +79,33 @@ module.exports = {
             name: a.key,
           },
           value: (typeof a.value === 'object') ?
-            a.value : {
+            a.value :
+            {
               type: 'Literal',
               value: a.value
             }
         };
       })
-    }
+    };
   },
 
+  defaults: function defaultsFor(node) {
+    var defaults = _(defaulters, node);
+    return {
+      type: 'ObjectExpression',
+      properties: [{
+        type: 'Property',
+        key: {
+          type: 'Identifier',
+          name: 'defaultValue',
+        },
+        value: (typeof defaults.value === 'object') ?
+          defaults.value : {
+            type: 'Literal',
+            value: defaults
+          }
+      }]
+    };
+  },
 };
 

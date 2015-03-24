@@ -15,5 +15,8 @@
   },
   "devDependencies": {
     "escodegen": "^1.6.1"
+  },
+  "peerDependencies": {
+    "react": "*"
   }
 }

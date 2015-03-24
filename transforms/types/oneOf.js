@@ -18,7 +18,12 @@ module.exports = {
   resolve: function(o) {
     // TODO: if this is a variable reference instead of inline
     // we’ll need to look it up
-    var elements = JSON.parse(JSON.stringify(o.arguments[0].elements));
+    try {
+      var elements = JSON.parse(JSON.stringify(o.arguments[0].elements));
+    } catch(e) {
+      // likely includes FunctionExpressions
+      console.log(o.arguments[0].elements);
+    }
     return {
       key: 'propType',
       value: {
