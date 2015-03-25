@@ -1,6 +1,6 @@
 {
   "name": "react-autodoc",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "A React component and webpack loader to autogenerate documentation for your React components",
   "main": "index.js",
   "scripts": {
