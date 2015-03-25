@@ -11,6 +11,13 @@ function isClassic(node) {
   );
 }
 
+function isClassicPropTypes(node) {
+  return (
+    node.type === 'Property' &&
+    node.key.name === 'getDefaultProps'
+  );
+}
+
 function isModern(node, parent) {
   return (
     node.type === 'MemberExpression' &&
@@ -48,6 +55,10 @@ module.exports = {
     else if (isModern(node, parent)) {
       parent.right.properties = parent.right.properties.map(annotate);
       return node;
+    }
+    else if (isClassicPropTypes(node)) {
+      console.log(node.value.properties);
+      console.log('isClassicPropTypes', node);
     }
   }
 };

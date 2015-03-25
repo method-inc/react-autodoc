@@ -32,16 +32,16 @@ module.exports = function(type) {
 
   // TODO: add support for default values
   var expected = [
-    '{propType: \'array\'}',
-    '{propType: \'bool\'}',
-    '{propType: \'func\'}',
-    '{propType: \'number\'}',
-    '{propType: \'object\'}',
-    '{propType: \'string\'}',
+    '{propType: \'array\', defaultValue: \'[]\'}',
+    '{propType: \'bool\', defaultValue: \'false\'}',
+    '{propType: \'func\', defaultValue: \'this.props.clickHandler\'}',
+    '{propType: \'number\', defaultValue: -1}',
+    '{propType: \'object\', optionalObject: \'{}\'}',
+    '{propType: \'string\', optionalString: \'Hello, React\'}',
     '{propType: \'node\'}',
     '{propType: \'element\'}',
     '{propType: \'Message\'}',
-    '{propType: [\'News\', \'Photos\']}',
+    '{propType: [\'News\', \'Photos\'], defaultValue: \'News\'}',
     '{propType: [\'string\', \'number\', \'Message\']}',
     '{propType: \'number[]\'}',
     '{propType: \'number{}\'}',

@@ -1,90 +1,154 @@
-/* @flow */
-require('./styles.css');
+"use strict";
 
-var React = require('react');
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+/* @flow */
+require("./styles.css");
+
+var React = require("react");
 
 var Autodoc = React.createClass({
+  displayName: "Autodoc",
 
-  renderDocs() {
-    var {docString} = this.props.component;
-    if (typeof docString === 'undefined') return null;
+  renderDocs: function renderDocs() {
+    var docString = this.props.component.docString;
 
-    return (
-      <p className="Autodoc-description">{docString}</p>
+    if (typeof docString === "undefined") {
+      return null;
+    }return React.createElement(
+      "p",
+      { className: "Autodoc-description" },
+      docString
     );
   },
 
-  renderPropType(propType) {
-    if (typeof propType === 'undefined') {
+  renderPropType: function renderPropType(propType) {
+    if (typeof propType === "undefined") {
       return;
     }
 
     if (Array.isArray(propType)) {
-      return propType.map(p => (
-        <span className={`Autodoc-type is-enum`}>{p}</span>
-      ));
+      return propType.map(function (p) {
+        return React.createElement(
+          "span",
+          { className: "Autodoc-type is-enum" },
+          p
+        );
+      });
     }
 
-    if (typeof propType === 'object') {
-      return (
-        <pre className={`Autodoc-type is-shape`}>
-          {`interface ${String.fromCharCode(123)}\n`}
-            {Object.keys(propType).map(function(k) {
-              return [
-                <span className="Autodoc-interface-key">  {k}: </span>,
-                <span className={`Autodoc-interface-type Autodoc-type is-${propType[k]}`}>{propType[k]}</span>,
-                '\n'
-              ];
-            })}
-          {`${String.fromCharCode(125)}`}
-        </pre>
+    if (typeof propType === "object") {
+      return React.createElement(
+        "pre",
+        { className: "Autodoc-type is-shape" },
+        "interface " + String.fromCharCode(123) + "\n",
+        Object.keys(propType).map(function (k) {
+          return [React.createElement(
+            "span",
+            { className: "Autodoc-interface-key" },
+            "  ",
+            k,
+            ": "
+          ), React.createElement(
+            "span",
+            { className: "Autodoc-interface-type Autodoc-type is-" + propType[k] },
+            propType[k]
+          ), "\n"];
+        }),
+        "" + String.fromCharCode(125)
       );
     }
 
-    return <span className={`Autodoc-type is-${propType}`}>{propType}</span>;
-  },
-
-  renderProps() {
-    var {propTypes} = this.props.component;
-    if (typeof propTypes === 'undefined') return null;
-
-    return (
-      <table className="Autodoc-table">
-        <thead>
-          <tr>
-            <td>Property</td>
-            <td>Type</td>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.keys(propTypes).filter(p => propTypes[p].annotation).map(p => {
-            var {propType, isRequired, defaultValue} = propTypes[p].annotation;
-            isRequired = isRequired ? 'Required' : 'Optional';
-            return (
-              <tr key={p}>
-                <th className="Autodoc-property">
-                  {p}
-                  <span className={`Autodoc-required is-${isRequired}`}>{isRequired}</span>
-                </th>
-                <td>{this.renderPropType(propType)}</td>
-                <td className="Autodoc-default">{defaultValue}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+    return React.createElement(
+      "span",
+      { className: "Autodoc-type is-" + propType },
+      propType
     );
   },
 
-  render() {
-    var {displayName} = this.props.component;
+  renderProps: function renderProps() {
+    var _this = this;
 
-    return (
-      <div className="Autodoc">
-        <h2 className="Autodoc-title">Autodoc for {displayName}</h2>
-        {this.renderDocs()}
-        {this.renderProps()}
-      </div>
+    var propTypes = this.props.component.propTypes;
+
+    if (typeof propTypes === "undefined") {
+      return null;
+    }return React.createElement(
+      "table",
+      _extends({ className: "Autodoc-table" }, this.props),
+      React.createElement(
+        "thead",
+        null,
+        React.createElement(
+          "tr",
+          null,
+          React.createElement(
+            "td",
+            null,
+            "Property"
+          ),
+          React.createElement(
+            "td",
+            null,
+            "Type"
+          )
+        )
+      ),
+      React.createElement(
+        "tbody",
+        null,
+        Object.keys(propTypes).filter(function (p) {
+          return propTypes[p].annotation;
+        }).map(function (p) {
+          var _propTypes$p$annotation = propTypes[p].annotation;
+          var propType = _propTypes$p$annotation.propType;
+          var isRequired = _propTypes$p$annotation.isRequired;
+          var defaultValue = _propTypes$p$annotation.defaultValue;
+
+          isRequired = isRequired ? "Required" : "Optional";
+          return React.createElement(
+            "tr",
+            { key: p },
+            React.createElement(
+              "th",
+              { className: "Autodoc-property" },
+              p,
+              React.createElement(
+                "span",
+                { className: "Autodoc-required is-" + isRequired },
+                isRequired
+              )
+            ),
+            React.createElement(
+              "td",
+              null,
+              _this.renderPropType(propType)
+            ),
+            React.createElement(
+              "td",
+              { className: "Autodoc-default" },
+              defaultValue
+            )
+          );
+        })
+      )
+    );
+  },
+
+  render: function render() {
+    var displayName = this.props.component.displayName;
+
+    return React.createElement(
+      "div",
+      { className: "Autodoc" },
+      React.createElement(
+        "h2",
+        { className: "Autodoc-title" },
+        "Autodoc for ",
+        displayName
+      ),
+      this.renderDocs(),
+      this.renderProps()
     );
   }
 

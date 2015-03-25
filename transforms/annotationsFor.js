@@ -67,6 +67,13 @@ module.exports = {
     }, {});
   },
 
+  defaults: function defaultsFor(node) {
+    return (_(defaulters, node)).reduce(function(o, k) {
+      o[k.key] = transform(k.value);
+      return o;
+    }, {});
+  },
+
   annotate: function annotationsFor(node) {
     var annotations = _(annotators, node);
     return {
@@ -89,7 +96,8 @@ module.exports = {
     };
   },
 
-  defaults: function defaultsFor(node) {
+
+  defaultAnnotations: function defaultsFor(node) {
     var defaults = _(defaulters, node);
     return {
       type: 'ObjectExpression',

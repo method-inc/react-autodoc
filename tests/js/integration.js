@@ -22,23 +22,18 @@ module.exports = function(type) {
 
   var transformer = require('../../esprima-extractor');
 
-  var ast = estraverse[transformer.type](
-    esprima.parse(contents),
-    transformer
-  );
-
   // TODO: add support for default values
   var fullExamplePropTypes = {
-    optionalArray: {propType: 'array'},
-    optionalBool: {propType: 'bool'},
-    optionalFunc: {propType: 'func'},
-    optionalNumber: {propType: 'number'},
-    optionalObject: {propType: 'object'},
-    optionalString: {propType: 'string'},
+    optionalArray: {propType: 'array', defaultValue: '[]'},
+    optionalBool: {propType: 'bool', defaultValue: 'false'},
+    optionalFunc: {propType: 'func', defaultValue: 'this.props.clickHandler'},
+    optionalNumber: {propType: 'number', defaultValue: -1},
+    optionalObject: {propType: 'object', defaultValue: '{}'},
+    optionalString: {propType: 'string', defaultValue: 'Hello, React'},
     optionalNode: {propType: 'node'},
     optionalElement: {propType: 'element'},
     optionalMessage: {propType: 'Message'},
-    optionalEnum: {propType: ['News', 'Photos']},
+    optionalEnum: {propType: ['News', 'Photos'], defaultValue: 'News'},
     optionalUnion: {propType: ['string', 'number', 'Message']},
     optionalArrayOf: {propType: 'number[]'},
     optionalObjectOf: {propType: 'number{}'},
@@ -51,15 +46,15 @@ module.exports = function(type) {
     ClassicExample: fullExamplePropTypes,
     ModernExample: fullExamplePropTypes,
     Round2: {
-      optionalArray: {propType: 'array'}
+      optionalArray: {propType: 'array', defaultValue: '[]'},
+      optionalBool: {defaultValue: 'false'},
+      optionalFunc: {defaultValue: 'this.props.clickHandler'},
+      optionalNumber: {defaultValue: -1},
+      optionalObject: {defaultValue: '{}'},
+      optionalString: {defaultValue: 'Hello, React'},
+      optionalEnum: {defaultValue: 'News'},
     },
   };
-
-  if (results.length === 0) {
-    throw new Error(
-      'No results were parsed. Expected ' + expected.length + ' annotations.'
-    );
-  }
 
   transformer.onComplete = function(annotations) {
     Object.keys(annotations).forEach(function(displayName, i) {
@@ -69,11 +64,23 @@ module.exports = function(type) {
       assert.deepEqual(
         result,
         expect,
-        'Expected \n' + JSON.stringify(result) +
-          ' not to be \n' + JSON.stringify(expect) +
-          ' for ' + displayName
+        '\nExpectations for ' + displayName + ': \n' +
+          JSON.stringify(result) +
+          ' not to be: \n' + JSON.stringify(expect)
       );
     });
   };
+
+  var ast = estraverse[transformer.type](
+    esprima.parse(contents),
+    transformer
+  );
+
+  if (results.length === 0) {
+    throw new Error(
+      'No results were parsed. Expected ' + expected.length + ' annotations.'
+    );
+  }
+
 };
 

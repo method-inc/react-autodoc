@@ -1,5 +1,6 @@
 var assert = require('assert');
 var esprima = require('esprima-fb');
+var escodegen = require('escodegen');
 var defaultsFor = require('../transforms/annotationsFor').defaults;
 
 var code = [
@@ -16,7 +17,7 @@ var code = [
 
 var expectedOutputs = [
   ObjectExpression('defaultValue', '[]'),
-  ObjectExpression('defaultValue', false),
+  ObjectExpression('defaultValue', 'false'),
   ObjectExpression('defaultValue', 'this.props.clickHandler'),
   ObjectExpression('defaultValue', -1),
   ObjectExpression('defaultValue', '{}'),
@@ -40,6 +41,10 @@ function test(node, index) {
 }
 
 function ObjectExpression() {
+  var o = {};
+  o[arguments[0]] = arguments[1];
+  return o;
+
   var props = Array.prototype.slice.call(arguments, 0);
   var properties = [];
   for (var i = 0; i < props.length; i += 2) {

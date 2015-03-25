@@ -1,5 +1,4 @@
 var PROP_TYPE_KEY = require('../propTypeKey');
-var annotators = require('./index');
 
 /**
  * Resolve annotations for member expressions
