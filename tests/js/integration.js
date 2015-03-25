@@ -66,7 +66,7 @@ module.exports = function(type) {
         expect,
         '\nExpectations for ' + displayName + ': \n' +
           JSON.stringify(result) +
-          ' not to be: \n' + JSON.stringify(expect)
+          ' to be: \n' + JSON.stringify(expect)
       );
     });
   };

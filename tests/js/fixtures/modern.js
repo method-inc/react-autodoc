@@ -89,6 +89,12 @@ Round2.propTypes = {
 
 Round2.defaultProps = {
   optionalArray: [],
+  optionalBool: false,
+  optionalFunc: this.props.clickHandler,
+  optionalNumber: -1,
+  optionalObject: {},
+  optionalString: 'Hello, React',
+  optionalEnum: 'News',
 };
 
 

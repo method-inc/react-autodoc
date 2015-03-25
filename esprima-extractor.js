@@ -118,6 +118,21 @@ module.exports = {
 
       Annotations[node.object.name] = parent.right.properties.reduce(extract, {});
     }
+    else if (
+      node.type === 'MemberExpression' &&
+      node.property.name === 'defaultProps'
+    ) {
+      var name = node.object.name;
+      if (_ReactClassDeclarations.indexOf(name) === -1) {
+        throw new Error(
+          'Attempted to assign defaultProps to unknown React Component ' +
+            name
+        );
+      }
+
+      Annotations[name] || (Annotations[name] = {});
+      deepExtend(Annotations[name], parent.right.properties.reduce(defaults, {}));
+    }
   },
 
   leave: function(node, parent) {
